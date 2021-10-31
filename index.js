@@ -2,10 +2,15 @@ const PORT = 8000;
 const express = require('express');
 const cheerio = require('cheerio');
 const axios = require('axios');
+const { response } = require('express');
 
 const app  = express();
 const articles = []
 const articles2 = []
+const addressUrl = [
+    'https://www.theguardian.com/environment/climate-crisis',
+    'https://www.skysports.com/football/news'
+]
 
 
 app.get('/',(req,res)=>{
@@ -47,6 +52,30 @@ app.get('/hot-news-main',(req,res)=>{
         res.json(articles2)
     }).catch((er) => console.log(er))
 })
+
+//Need to work on this
+
+// app.get('/all-news',(req,res) => {
+//     for(var i in addressUrl){
+//         axios.get(addressUrl[i])
+//     .then((response)=>{
+//         const html2 = response.data
+//         const $ = cheerio.load(html2)
+
+//         $(`a:contains("hospital")`,html2).each(function (){
+//             const title = $(this).text()
+//             const url = $(this).attr('href')
+//             articles2.push({
+//                 title,url
+//             })
+//         })
+//         res.json(articles2)
+//     }).catch((er) => console.log(er))
+//     }
+    
+// })
+
+
 
 app.listen(PORT, ()=> {
     console.log(`Server is running in PORT number that we instantiated =  ${PORT}`)
